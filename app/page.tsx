@@ -1,69 +1,142 @@
-import Image from "next/image";
+
+"use client";
+
+import { useState } from "react";
 
 export default function Home() {
+  const [genre, setGenre] = useState("Hip-Hop");
+  const [mood, setMood] = useState("Chill");
+  const [bpm, setBpm] = useState(95);
+  const [lyrics, setLyrics] = useState("");
+  const [created, setCreated] = useState(false);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+    <main className="min-h-screen bg-[#090b10] text-white">
+      <header className="flex items-center justify-between border-b border-white/10 px-6 py-5">
+        <h1 className="text-3xl font-black tracking-tight">
+          i<span className="text-cyan-400">BEATS</span>
+        </h1>
+        <span className="rounded-full border border-cyan-400/40 px-3 py-1 text-xs text-cyan-300">
+          MUSIC STUDIO
+        </span>
+      </header>
+
+      <section className="mx-auto max-w-5xl px-5 py-10">
+        <p className="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-cyan-400">
+          Your sound. Your world.
+        </p>
+        <h2 className="text-4xl font-black sm:text-6xl">
+          Make something <span className="text-cyan-400">real.</span>
+        </h2>
+        <p className="mt-4 max-w-xl text-gray-400">
+          Build beat ideas, find your sound and start writing your next track.
+          Your music journey starts here.
+        </p>
+
+        <div className="mt-8 grid gap-5 md:grid-cols-2">
+          <section className="rounded-2xl border border-white/10 bg-white/[0.04] p-5">
+            <h3 className="text-xl font-bold">Beat Maker</h3>
+            <p className="mt-1 text-sm text-gray-400">
+              Shape your next beat concept.
+            </p>
+
+            <label className="mt-5 block text-sm text-gray-300">Genre</label>
+            <select
+              value={genre}
+              onChange={(e) => setGenre(e.target.value)}
+              className="mt-2 w-full rounded-xl border border-white/10 bg-[#151923] p-3"
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+              <option>Hip-Hop</option>
+              <option>Trap</option>
+              <option>Drill</option>
+              <option>House</option>
+              <option>Afrobeats</option>
+              <option>Lo-fi</option>
+              <option>Pop</option>
+            </select>
+
+            <label className="mt-4 block text-sm text-gray-300">Mood</label>
+            <select
+              value={mood}
+              onChange={(e) => setMood(e.target.value)}
+              className="mt-2 w-full rounded-xl border border-white/10 bg-[#151923] p-3"
             >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
+              <option>Chill</option>
+              <option>Dark</option>
+              <option>Energetic</option>
+              <option>Emotional</option>
+              <option>Uplifting</option>
+            </select>
+
+            <label className="mt-4 block text-sm text-gray-300">
+              Tempo: {bpm} BPM
+            </label>
+            <input
+              type="range"
+              min="60"
+              max="180"
+              value={bpm}
+              onChange={(e) => setBpm(Number(e.target.value))}
+              className="mt-3 w-full accent-cyan-400"
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+            <button
+              onClick={() => setCreated(true)}
+              className="mt-6 w-full rounded-xl bg-cyan-400 p-3 font-bold text-black"
+            >
+              Create Beat Concept
+            </button>
+
+            {created && (
+              <div className="mt-4 rounded-xl border border-cyan-400/30 bg-cyan-400/10 p-4">
+                <p className="font-bold text-cyan-300">Your beat blueprint</p>
+                <p className="mt-2 text-sm">
+                  {mood} {genre} · {bpm} BPM
+                </p>
+                <p className="mt-1 text-sm text-gray-300">
+                  Try punchy drums, a memorable melody and a bassline that
+                  matches the mood.
+                </p>
+              </div>
+            )}
+          </section>
+
+          <section className="rounded-2xl border border-white/10 bg-white/[0.04] p-5">
+            <h3 className="text-xl font-bold">Songwriter</h3>
+            <p className="mt-1 text-sm text-gray-400">
+              Start your lyrics and keep your ideas here.
+            </p>
+
+            <label className="mt-5 block text-sm text-gray-300">
+              Your lyrics
+            </label>
+            <textarea
+              value={lyrics}
+              onChange={(e) => setLyrics(e.target.value)}
+              placeholder="Start writing your first verse..."
+              rows={8}
+              className="mt-2 w-full resize-y rounded-xl border border-white/10 bg-[#151923] p-3"
+            />
+
+            <p className="mt-3 text-sm text-gray-400">
+              {lyrics.length} characters · Your words, your story.
+            </p>
+
+            <button
+              onClick={() =>
+                navigator.clipboard?.writeText(lyrics)
+              }
+              className="mt-4 w-full rounded-xl border border-cyan-400/40 p-3 font-semibold text-cyan-300"
+            >
+              Copy Lyrics
+            </button>
+          </section>
         </div>
-      </main>
-    </div>
+
+        <footer className="mt-10 border-t border-white/10 py-6 text-center text-sm text-gray-500">
+          iBEATS · Create without limits.
+        </footer>
+      </section>
+    </main>
   );
 }
